@@ -28,4 +28,26 @@ const createUser = asyncHandler(async (req, res) => {
   res.status(201).json(user);
 });
 
-export { createUser };
+// LOGIN USER
+
+const loginUser = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
+  if (!email || !password) {
+    res.status(400);
+    throw new Error("Please fill all fields");
+  }
+  const user = await User.findOne({ email });
+  if (!user) {
+    res.status(400);
+    throw new Error("User not found");
+  }
+  const isMatch = await bcrypt.compare(password, user.password);
+  if (!isMatch) {
+    res.status(400);
+    throw new Error("Invalid credentials");
+  }
+  createToken(res, user._id);
+  res.status(200).json(user);
+});
+
+export { createUser, loginUser };
