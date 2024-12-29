@@ -12,6 +12,7 @@
   "dependencies": {
     "@paypal/react-paypal-js": "^8.7.0",
     "@reduxjs/toolkit": "^2.5.0",
+    "@vercel/analytics": "^1.4.1",
     "apexcharts": "^4.3.0",
     "axios": "^1.7.9",
     "flowbite": "^2.5.2",
