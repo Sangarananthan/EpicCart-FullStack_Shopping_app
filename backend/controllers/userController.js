@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 import createToken from "../utils/createToken.js";
 
 // CREATING AN USER
+
 const createUser = asyncHandler(async (req, res) => {
   const { username, email, password } = req.body;
   if (!username || !email || !password) {
@@ -50,4 +51,21 @@ const loginUser = asyncHandler(async (req, res) => {
   res.status(200).json(user);
 });
 
-export { createUser, loginUser };
+// LOGOUT USER
+
+const logoutCurrentUser = asyncHandler(async (req, res) => {
+  res.cookie("jwt", "", {
+    httpOnly: true,
+    expires: new Date(0),
+  });
+  res.status(200).json({ message: "User logged out" });
+});
+
+// GET ALL USERS
+
+const getAllUsers = asyncHandler(async (req, res) => {
+  const users = await User.find({});
+  res.status(200).json(users);
+});
+
+export { createUser, loginUser, logoutCurrentUser, getAllUsers };
