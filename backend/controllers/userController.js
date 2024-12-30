@@ -68,4 +68,83 @@ const getAllUsers = asyncHandler(async (req, res) => {
   res.status(200).json(users);
 });
 
-export { createUser, loginUser, logoutCurrentUser, getAllUsers };
+// GET CURRENT USER
+
+const getCurrentUser = asyncHandler(async (req, res) => {
+  res.status(200).json(req.user);
+});
+
+// UPDATE CURRENT USER
+
+const updateCurrentUser = asyncHandler(async (req, res) => {
+  const { username, email, password } = req.body;
+  const user = await User.findById(req.user._id);
+  if (!user) {
+    res.status(404);
+    throw new Error("User not found");
+  }
+  user.username = username || user.username;
+
+  user.email = email || user.email;
+  if (password) {
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(password, salt);
+  }
+  await user.save();
+  res.status(200).json(user);
+});
+
+// DELETE USER BY ID
+
+const deleteUserById = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+  if (!user) {
+    res.status(404);
+    throw new Error("User not found");
+  }
+  if (user.isAdmin) {
+    res.status(400);
+    throw new Error("Admin can't be deleted");
+  }
+  await user.deleteOne({ _id: user._id });
+  res.status(200).json({ message: "User removed" });
+});
+
+// GET USER BY ID
+
+const getUserById = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id).select("-password");
+  if (!user) {
+    res.status(404);
+    throw new Error("User not found");
+  }
+  res.status(200).json(user);
+});
+
+// UPDATE USER BY ID
+
+const updateUserById = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id).select("-password");
+  if (!user) {
+    res.status(404);
+    throw new Error("User not found");
+  }
+  const { username, email } = req.body;
+  console.log(username, email);
+  user.username = username || user.username;
+  user.email = email || user.email;
+  await user.save();
+  res.status(200).json(user);
+});
+
+export {
+  createUser,
+  loginUser,
+  logoutCurrentUser,
+  getAllUsers,
+  getCurrentUser,
+  updateCurrentUser,
+  deleteUserById,
+  getUserById,
+  updateUserById,
+};
