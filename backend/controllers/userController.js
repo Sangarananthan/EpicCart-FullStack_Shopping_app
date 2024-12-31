@@ -7,48 +7,62 @@ import createToken from "../utils/createToken.js";
 
 const createUser = asyncHandler(async (req, res) => {
   const { username, email, password } = req.body;
+
   if (!username || !email || !password) {
-    res.status(400);
-    throw new Error("Please fill all fields");
+    return res.status(400).json({
+      message: "Please fill all fields",
+    });
   }
 
   const existUser = await User.findOne({ email });
   if (existUser) {
-    res.status(400);
-    throw new Error("User already exist");
+    return res.status(400).json({
+      message: "User already exists",
+    });
   }
+
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
+
   const user = await User.create({
     username,
     email,
     password: hashedPassword,
   });
+
   await user.save();
   createToken(res, user._id);
-  res.status(201).json(user);
+
+  res.status(201).json({
+    user,
+    message: "Registration successful! Welcome to our platform!",
+  });
 });
 
 // LOGIN USER
 
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
+
   if (!email || !password) {
-    res.status(400);
-    throw new Error("Please fill all fields");
+    return res.status(400).json({ message: "Please fill all fields" });
   }
+
   const user = await User.findOne({ email });
   if (!user) {
-    res.status(400);
-    throw new Error("User not found");
+    return res.status(400).json({ message: "User not found" });
   }
+
   const isMatch = await bcrypt.compare(password, user.password);
   if (!isMatch) {
-    res.status(400);
-    throw new Error("Invalid credentials");
+    return res.status(400).json({ message: "Invalid credentials" });
   }
+
   createToken(res, user._id);
-  res.status(200).json(user);
+  res.status(200).json({
+    user,
+    message: "Login successful! Welcome back!",
+  });
 });
 
 // LOGOUT USER

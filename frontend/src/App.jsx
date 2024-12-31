@@ -9,7 +9,7 @@ const App = () => {
       <Analytics />
       <ToastContainer />
       <Navigation />
-      <main className="py-3">
+      <main>
         <Outlet />
       </main>
     </>
