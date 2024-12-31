@@ -20,6 +20,7 @@ const app = express();
 const allowedOrigins = [
   "http://localhost:5173", // Vite's default port
   "http://localhost:3000",
+  "http://localhost:5000",
   "https://epic-cart-wheat.vercel.app/",
 ];
 
