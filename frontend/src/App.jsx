@@ -1,10 +1,18 @@
 import { Analytics } from "@vercel/analytics/react";
+import { Outlet } from "react-router-dom";
+import Navigation from "./pages/auth/Navigation";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const App = () => {
   return (
-    <div className="min-h-screen bg-green-100">
+    <>
       <Analytics />
-      <h1 className="text-3xl font-bold text-center py-8">My Shopping App</h1>
-    </div>
+      <ToastContainer />
+      <Navigation />
+      <main className="py-3">
+        <Outlet />
+      </main>
+    </>
   );
 };
 
