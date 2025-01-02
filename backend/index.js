@@ -7,6 +7,7 @@ import { fileURLToPath } from "url";
 import connectDb from "./config/db.js";
 import userRoutes from "./routes/userRoutes.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
+import productRoutes from "./routes/productRoutes.js";
 dotenv.config({
   path: resolve(dirname(fileURLToPath(import.meta.url)), "../.env"),
 });
@@ -52,7 +53,7 @@ app.use("/api/users/", userRoutes);
 app.use("/api/categories/", categoryRoutes);
 
 //  PRODUCT API
-// app.use("/api/products/", productRoutes);
+app.use("/api/products/", productRoutes);
 
 //  ORDER API
 // app.use("/api/orders/", orderRoutes);

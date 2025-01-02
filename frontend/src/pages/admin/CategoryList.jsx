@@ -111,7 +111,6 @@ const EnhancedCategoryList = () => {
   const [createCategory] = useCreateCategoryMutation();
   const [updateCategory] = useUpdateCategoryMutation();
   const [deleteCategory] = useDeleteCategoryMutation();
-  const { data: categoryData } = useGetCategoryQuery(selectedCategory?._id);
 
   useEffect(() => {
     refetch();
@@ -169,6 +168,12 @@ const EnhancedCategoryList = () => {
 
   if (error) {
     return <div>Error: {error.message}</div>;
+  }
+  {
+    const listOfCategories = categories?.map(
+      (category) => `${category.name} : ${category._id}`
+    );
+    console.log(listOfCategories);
   }
 
   return (
