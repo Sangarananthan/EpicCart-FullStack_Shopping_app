@@ -84,7 +84,7 @@ const Register = () => {
         email: formData.email,
         password: formData.password,
       }).unwrap();
-
+       
       dispatch(setCreadintials(result.user));
       toast.success(result.message || "Registration successful!");
       navigate(redirect);

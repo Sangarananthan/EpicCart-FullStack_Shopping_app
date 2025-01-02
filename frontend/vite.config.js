@@ -5,11 +5,8 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      "/api": {
-        target: "https://epic-cart.onrender.com",
-        changeOrigin: true,
-        secure: false,
-      },
+      "/api/": "http://localhost:5000",
+      "/uploads/": "http://localhost:5000",
     },
   },
   resolve: {

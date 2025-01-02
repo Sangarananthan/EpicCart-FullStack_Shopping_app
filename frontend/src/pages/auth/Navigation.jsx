@@ -42,7 +42,7 @@ const Navigation = () => {
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [userInfo]);
 
   const toggleDropdown = () => {
     setDropdown(!dropdownOpen);
@@ -160,6 +160,7 @@ const Navigation = () => {
           </div>
 
           {/* User Section */}
+
           <div className="p-4 border-t border-gray-700">
             {userInfo ? (
               <div className="relative">
@@ -184,7 +185,6 @@ const Navigation = () => {
                     </>
                   )}
                 </button>
-
                 {dropdownOpen && (isExpanded || isMobileMenuOpen) && (
                   <div className="absolute bottom-full left-0 w-full mb-2 bg-gray-800 rounded-lg shadow-lg overflow-hidden transform origin-bottom transition-all duration-200">
                     {userInfo.isAdmin && (
