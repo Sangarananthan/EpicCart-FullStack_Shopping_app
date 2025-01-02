@@ -6,7 +6,7 @@ import { dirname, resolve } from "path";
 import { fileURLToPath } from "url";
 import connectDb from "./config/db.js";
 import userRoutes from "./routes/userRoutes.js";
-
+import categoryRoutes from "./routes/categoryRoutes.js";
 dotenv.config({
   path: resolve(dirname(fileURLToPath(import.meta.url)), "../.env"),
 });
@@ -47,6 +47,16 @@ app.get("/", (req, res) => {
 
 //  USER API
 app.use("/api/users/", userRoutes);
+
+//  CATEGORY API
+app.use("/api/categories/", categoryRoutes);
+
+//  PRODUCT API
+// app.use("/api/products/", productRoutes);
+
+//  ORDER API
+// app.use("/api/orders/", orderRoutes);
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

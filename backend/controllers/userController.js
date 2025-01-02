@@ -95,7 +95,6 @@ const getCurrentUser = asyncHandler(async (req, res) => {
 
 const updateCurrentUser = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
-  console.log(user);
   const { username, email, password } = req.body;
 
   if (!user) {
