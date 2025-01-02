@@ -67,10 +67,7 @@ const removeCategory = asyncHandler(async (req, res) => {
 
 const listCategory = asyncHandler(async (req, res) => {
   const categories = await Category.find({});
-  res.status(200).json({
-    categories,
-    message: "Categories retrieved successfully",
-  });
+  res.status(200).json(categories);
 });
 
 const readCategory = asyncHandler(async (req, res) => {

@@ -77,7 +77,7 @@ const AdminDashboard = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-950 lg:ml-20">
+    <div className="min-h-screen bg-gray-50 lg:ml-20">
       {/* Admin Menu Button */}
       <motion.button
         whileHover={{ scale: 1.05 }}
@@ -137,10 +137,10 @@ const AdminDashboard = () => {
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            className="bg-gray-200 rounded-xl shadow-lg p-6"
+            className="bg-white rounded-xl shadow-2xl p-6"
           >
             <h1 className="text-2xl font-bold text-gray-800 mb-6">
-              User Management
+              Manage Users
             </h1>
 
             <div className="overflow-x-auto">
