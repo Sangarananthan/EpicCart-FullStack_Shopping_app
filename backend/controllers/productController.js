@@ -1,7 +1,7 @@
 import asyncHandler from "../middlewares/asyncHandler.js";
 import Product from "../models/productModel.js";
 
-// ADD PRODUCT
+// CREATE A PRODUCT
 const addProduct = asyncHandler(async (req, res) => {
   const { name, description, price, category, quantity, brand } = req.fields;
 
@@ -49,7 +49,7 @@ const updateProductDetails = asyncHandler(async (req, res) => {
   });
 });
 
-// REMOVE PRODUCT
+  // DELETE A PRODUCT
 const removeProduct = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id);
 
