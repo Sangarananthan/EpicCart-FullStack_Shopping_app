@@ -49,7 +49,7 @@ const updateProductDetails = asyncHandler(async (req, res) => {
   });
 });
 
-  // DELETE A PRODUCT
+// DELETE A PRODUCT
 const removeProduct = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id);
 

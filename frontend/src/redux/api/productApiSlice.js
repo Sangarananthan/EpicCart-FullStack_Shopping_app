@@ -8,6 +8,7 @@ export const productApiSlice = apiSlice.injectEndpoints({
       query: ({ keyword }) => ({
         url: `${PRODUCTS_URL}`,
         params: { keyword },
+        credentials: "include",
       }),
       keepUnusedDataFor: 5,
       providesTags: ["Product"],
@@ -41,6 +42,7 @@ export const productApiSlice = apiSlice.injectEndpoints({
         url: `${PRODUCTS_URL}`,
         method: "POST",
         body: productData,
+        credentials: "include",
       }),
       invalidatesTags: ["Product"],
     }),
@@ -50,6 +52,7 @@ export const productApiSlice = apiSlice.injectEndpoints({
         url: `${PRODUCTS_URL}/${productId}`,
         method: "PUT",
         body: formData,
+        credentials: "include",
       }),
     }),
 
@@ -58,6 +61,7 @@ export const productApiSlice = apiSlice.injectEndpoints({
         url: `${UPLOADS_URL}`,
         method: "POST",
         body: data,
+        credentials: "include",
       }),
     }),
 
@@ -65,6 +69,7 @@ export const productApiSlice = apiSlice.injectEndpoints({
       query: (productId) => ({
         url: `${PRODUCTS_URL}/${productId}`,
         method: "DELETE",
+        credentials: "include",
       }),
       providesTags: ["Product"],
     }),
@@ -74,6 +79,7 @@ export const productApiSlice = apiSlice.injectEndpoints({
         url: `${PRODUCTS_URL}/${data.productId}/reviews`,
         method: "POST",
         body: data,
+        credentials: "include",
       }),
     }),
 
@@ -111,4 +117,3 @@ export const {
   useGetNewProductsQuery,
   useGetFilteredProductsQuery,
 } = productApiSlice;
-

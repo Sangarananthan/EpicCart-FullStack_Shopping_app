@@ -13,7 +13,7 @@ dotenv.config({
   path: resolve(dirname(fileURLToPath(import.meta.url)), "../.env"),
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 connectDb();
 
 const app = express();
@@ -61,7 +61,6 @@ app.use("/api/uploads/", uploadRoutes);
 
 //  ORDER API
 // app.use("/api/orders/", orderRoutes);
-
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
