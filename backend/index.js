@@ -9,6 +9,7 @@ import userRoutes from "./routes/userRoutes.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
+
 dotenv.config({
   path: resolve(dirname(fileURLToPath(import.meta.url)), "../.env"),
 });

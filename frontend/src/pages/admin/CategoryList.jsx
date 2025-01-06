@@ -181,7 +181,7 @@ const EnhancedCategoryList = () => {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="max-w-6xl mx-auto"
+        className="lg:ml-20 mx-auto"
       >
         <h1 className="text-3xl font-bold text-gray-800 mb-8">
           Manage Categories

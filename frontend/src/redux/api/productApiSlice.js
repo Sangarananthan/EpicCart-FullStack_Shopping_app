@@ -48,19 +48,10 @@ export const productApiSlice = apiSlice.injectEndpoints({
     }),
 
     updateProduct: builder.mutation({
-      query: ({ productId, formData }) => ({
-        url: `${PRODUCTS_URL}/${productId}`,
-        method: "PUT",
-        body: formData,
-        credentials: "include",
-      }),
-    }),
-
-    uploadProductImage: builder.mutation({
       query: (data) => ({
-        url: `${UPLOADS_URL}`,
-        method: "POST",
-        body: data,
+        url: `${PRODUCTS_URL}/${data.id}`,
+        method: "PUT",
+        body: data.form,
         credentials: "include",
       }),
     }),
@@ -110,7 +101,6 @@ export const {
   useGetProductDetailQuery,
   useCreateProductMutation,
   useUpdateProductMutation,
-  useUploadProductImageMutation,
   useDeleteProductMutation,
   useCreateReviewMutation,
   useGetTopProductsQuery,

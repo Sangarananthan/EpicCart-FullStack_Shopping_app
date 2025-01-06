@@ -110,7 +110,7 @@ const Navigation = () => {
           zIndex: 999,
           backdropFilter: isExpanded ? "blur(5px)" : "none",
         }}
-        className={`fixed h-screen bg-gray-800 text-white transition-all duration-300 ease-in-out
+        className={`fixed h-screen bg-black backdrop-blur-sm bg-opacity-95 text-white transition-all duration-300 ease-in-out
           ${isExpanded ? "w-64" : "w-20"} 
           lg:translate-x-0
           ${isMobileMenuOpen ? "translate-x-0 w-64" : "-translate-x-full"}
@@ -161,7 +161,7 @@ const Navigation = () => {
 
           {/* User Section */}
 
-          <div className="p-4 border-t border-gray-700">
+          <div className="p-4 border-t border-gray-900">
             {userInfo ? (
               <div className="relative">
                 <button
@@ -186,7 +186,7 @@ const Navigation = () => {
                   )}
                 </button>
                 {dropdownOpen && (isExpanded || isMobileMenuOpen) && (
-                  <div className="absolute bottom-full left-0 w-full mb-2 bg-gray-800 rounded-lg shadow-lg overflow-hidden transform origin-bottom transition-all duration-200">
+                  <div className="absolute bottom-full left-0 w-full mb-2 bg-gray-900 rounded-lg shadow-lg overflow-hidden transform origin-bottom transition-all duration-200">
                     {userInfo.isAdmin && (
                       <>
                         <NavLink

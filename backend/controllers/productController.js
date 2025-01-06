@@ -25,12 +25,12 @@ const addProduct = asyncHandler(async (req, res) => {
 const updateProductDetails = asyncHandler(async (req, res) => {
   const { name, description, price, category, quantity, brand } = req.fields;
 
-  if (!name || !brand || !description || !price || !category || !quantity) {
-    return res.status(400).json({
-      message:
-        "Please provide all required fields: name, brand, description, price, category, and quantity",
-    });
-  }
+  // if (!name || !brand || !description || !price || !category || !quantity) {
+  //   return res.status(400).json({
+  //     message:
+  //       "Please provide all required fields: name, brand, description, price, category, and quantity",
+  //   });
+  // }
 
   const product = await Product.findById(req.params.id);
   if (!product) {
@@ -93,23 +93,17 @@ const fetchProductById = asyncHandler(async (req, res) => {
     return res.status(404).json({ message: "Product not found" });
   }
 
-  res.status(200).json({
-    product,
-    message: "Product retrieved successfully",
-  });
+  res.status(200).json(product);
 });
 
 // FETCH ALL PRODUCTS
 const fetchAllProducts = asyncHandler(async (req, res) => {
   const products = await Product.find({})
     .populate("category")
-    .limit(12)
+    .limit(25)
     .sort({ createAt: -1 });
 
-  res.status(200).json({
-    products,
-    message: "All products retrieved successfully",
-  });
+  res.status(200).json(products);
 });
 
 // ADD PRODUCT REVIEW

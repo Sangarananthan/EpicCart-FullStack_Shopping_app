@@ -70,8 +70,8 @@ const AdminDashboard = () => {
   const menuItems = [
     { path: "/admin/dashboard", label: "Dashboard", icon: FaUserCog },
     { path: "/admin/categorylist", label: "Categories" },
-    { path: "/admin/productlist", label: "Products" },
-    { path: "/admin/allproductslist", label: "All Products" },
+    { path: "/admin/productlist", label: "Add Product" },
+    { path: "/admin/allproducts", label: "All Products" },
     { path: "/admin/userlist", label: "Users" },
     { path: "/admin/orderlist", label: "Orders" },
   ];

@@ -13,10 +13,10 @@ import Login from "./pages/auth/Login.jsx";
 import Register from "./pages/auth/Register.jsx";
 import Profile from "./pages/user/Profile.jsx";
 import AdminRoute from "./pages/admin/AdminRoute.jsx";
-import UserList from "./pages/admin/UserList.jsx";
 import AdminDashboard from "./pages/admin/AdminDashboard.jsx";
 import CategoryList from "./pages/admin/CategoryList.jsx";
 import ProductCreateForm from "./pages/admin/ProductUpload.jsx";
+import AllProducts from "./pages/admin/AllProducts";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
@@ -28,10 +28,11 @@ const router = createBrowserRouter(
       </Route>
 
       <Route path="/admin" element={<AdminRoute />}>
-        <Route path="userlists" element={<UserList />} />
         <Route path="userlist" element={<AdminDashboard />} />
         <Route path="categorylist" element={<CategoryList />} />
         <Route path="productlist" element={<ProductCreateForm />} />
+        <Route path="product/update/:_id" element={<ProductCreateForm />} />
+        <Route path="allProducts" element={<AllProducts />} />
       </Route>
     </Route>
   )
