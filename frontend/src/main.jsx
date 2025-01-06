@@ -17,12 +17,13 @@ import AdminDashboard from "./pages/admin/AdminDashboard.jsx";
 import CategoryList from "./pages/admin/CategoryList.jsx";
 import ProductCreateForm from "./pages/admin/ProductUpload.jsx";
 import AllProducts from "./pages/admin/AllProducts";
+import Home from "./Home.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-
+      <Route index={true} path="/" element={<Home />} />
       <Route path="" element={<PrivateRoute />}>
         <Route path="/profile" element={<Profile />} />
       </Route>
