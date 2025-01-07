@@ -18,6 +18,7 @@ import CategoryList from "./pages/admin/CategoryList.jsx";
 import ProductCreateForm from "./pages/admin/ProductUpload.jsx";
 import AllProducts from "./pages/admin/AllProducts";
 import Home from "./Home.jsx";
+import Favorites from "./pages/products/Favorites.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
@@ -26,6 +27,7 @@ const router = createBrowserRouter(
       <Route index={true} path="/" element={<Home />} />
       <Route path="" element={<PrivateRoute />}>
         <Route path="/profile" element={<Profile />} />
+        <Route path="/favorite" element={<Favorites />} />
       </Route>
 
       <Route path="/admin" element={<AdminRoute />}>

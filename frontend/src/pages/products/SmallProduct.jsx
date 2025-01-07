@@ -2,38 +2,29 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Card, CardContent } from "../../components/ui/card";
 import { Badge } from "../../components/ui/badge";
-import { Heart } from "lucide-react";
+import HeartIcon from "../../components/HeartIcon";
 
 const SmallProduct = ({ product }) => {
-  const [isLiked, setIsLiked] = React.useState(false);
-
   return (
     <Card className="h-full overflow-hidden group">
+      <div className="relative aspect-[4/3]">
+        <img
+          src={product.imageUrl}
+          alt={product.name}
+          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+        />
+
+        <button
+          onClick={(e) => e.preventDefault()}
+          className="absolute top-3 right-3 z-10 p-1.5 rounded-full bg-white/20 backdrop-blur-xl hover:bg-red-800/20 transition-colors"
+        >
+          <HeartIcon product={product} />
+        </button>
+
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+      </div>
+
       <Link to={`/product/${product._id}`}>
-        <div className="relative aspect-[4/3]">
-          <img
-            src={product.imageUrl}
-            alt={product.name}
-            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-          />
-
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              setIsLiked(!isLiked);
-            }}
-            className="absolute top-2 right-2 p-1.5 rounded-full bg-white/80 backdrop-blur-sm hover:bg-white transition-colors"
-          >
-            <Heart
-              className={`w-3.5 h-3.5 transition-colors ${
-                isLiked ? "fill-pink-500 text-pink-500" : "text-gray-600"
-              }`}
-            />
-          </button>
-
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-        </div>
-
         <CardContent className="p-2.5">
           <div className="flex flex-col items-start justify-between gap-2">
             <h3 className="text-sm font-medium line-clamp-1 group-hover:text-pink-500 transition-colors">
@@ -56,7 +47,6 @@ const SmallProduct = ({ product }) => {
                   In Stock : {product.countInStock}
                 </Badge>
               </div>
-              
             </div>
           </div>
         </CardContent>

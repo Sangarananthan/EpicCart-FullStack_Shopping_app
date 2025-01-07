@@ -19,7 +19,7 @@ const Header = () => {
         {/* Product Grid - Responsive visibility */}
         <div className="col-span-1 md:col-span-12 lg:col-span-6 xl:col-span-6">
           <div className="flex flex-col h-full justify-between">
-            <h1 className="text-3xl font-bold tracking-tight mb-[1rem]">
+            <h1 className="text-2xl font-bold tracking-tight mb-[1rem]">
               New Arrivals
             </h1>
             <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-2 gap-6 flex-grow">

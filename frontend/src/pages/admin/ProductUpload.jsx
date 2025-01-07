@@ -155,7 +155,7 @@ const ProductCreateForm = () => {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="min-h-screen bg-gray-50 p-6"
+      className="min-h-screen bg-gray-50 p-6 lg:ml-20"
     >
       {isUpdate && productLoading ? (
         <Loader />

@@ -47,7 +47,7 @@ const ProductCarousel = () => {
       }}
       className="relative  aspect-square"
     >
-      <h1 className="text-3xl font-bold tracking-tight mb-[1rem]">
+      <h1 className="text-2xl  font-bold tracking-tight mb-[1rem]">
         Top Products
       </h1>
       <CarouselContent>

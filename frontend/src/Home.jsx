@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { Store, ArrowRight } from "lucide-react";
-import ProductDetails from "./pages/products/Products";
+import ProductDetails from "./pages/products/Product";
 import { Alert, AlertDescription } from "./components/ui/alert.jsx";
 import { useGetProductsQuery } from "./redux/api/productApiSlice";
 import Header from "./components/Header";

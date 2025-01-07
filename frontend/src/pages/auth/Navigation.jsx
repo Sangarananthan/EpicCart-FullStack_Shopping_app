@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { useLogoutMutation } from "../../redux/api/userApiSlice";
 import { logout as logoutAction } from "../../redux/features/auth/authSlice";
+import FavoritesCount from "../products/FavoritesCount";
 const Navigation = () => {
   const [dropdownOpen, setDropdown] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -153,7 +154,7 @@ const Navigation = () => {
             />
             <NavLink
               to="/favorite"
-              icon={Heart}
+              icon={FavoritesCount}
               label="FAVORITES"
               onClick={() => setIsMobileMenuOpen(false)}
             />
