@@ -188,6 +188,15 @@ const filterProducts = asyncHandler(async (req, res) => {
   });
 });
 
+//  FETCH SIMILAR CATEGORY PRODUCTS
+const fetchSimilarCategoryProducts = asyncHandler(async (req, res) => {
+  const products = await Product.find({ category: req.params.id });
+  res.status(200).json({
+    products,
+    message: "Similar category products retrieved successfully",
+  });
+});
+
 export {
   addProduct,
   updateProductDetails,
@@ -199,4 +208,5 @@ export {
   fetchTopProducts,
   fetchNewProducts,
   filterProducts,
+  fetchSimilarCategoryProducts,
 };

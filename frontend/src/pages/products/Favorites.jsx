@@ -8,7 +8,7 @@ const Favorites = () => {
   const favorites = getFavoritesFromLocalStorage();
   useEffect(() => {});
   return (
-    <div className="container mx-auto px-4 py-8 lg:ml-20">
+    <div className=" mx-auto px-4 py-8 lg:ml-20">
       <div className="mb-8">
         <h1 className="text-2xl font-bold">Favorite Products</h1>
         <p className="text-gray-500 mt-2">

@@ -13,6 +13,7 @@ import {
   fetchTopProducts,
   fetchNewProducts,
   filterProducts,
+  fetchSimilarCategoryProducts,
 } from "../controllers/productController.js";
 const router = express.Router();
 
@@ -26,7 +27,7 @@ router.route("/:id/reviews").post(authenicateUser, checkId, addProductReview);
 
 router.get("/top", fetchTopProducts);
 router.get("/new", fetchNewProducts);
-
+router.get("/similar/:id" , fetchSimilarCategoryProducts);
 router
   .route("/:id")
   .get(fetchProductById)
