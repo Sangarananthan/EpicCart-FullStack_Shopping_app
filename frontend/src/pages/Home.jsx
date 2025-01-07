@@ -1,11 +1,11 @@
 import { Link, useParams } from "react-router-dom";
 import { Store, ArrowRight } from "lucide-react";
-import ProductDetails from "./pages/products/Product";
-import { Alert, AlertDescription } from "./components/ui/alert.jsx";
-import { useGetProductsQuery } from "./redux/api/productApiSlice";
-import Header from "./components/Header";
-import { Card, CardContent } from "./components/ui/card";
-import { Button } from "./components/ui/button";
+import { useGetProductsQuery } from "../redux/api/productApiSlice";
+import Header from "../components/Header";
+import { Card, CardContent } from "../components/ui/card";
+import { Alert, AlertDescription } from "../components/ui/alert";
+import { Button } from "../components/ui/button";
+import Product from "./products/Product";
 
 const Home = () => {
   const { keyword } = useParams();
@@ -50,13 +50,13 @@ const Home = () => {
   }
 
   return (
-    <div className="min-h-screen lg:ml-20">
+    <div className="min-h-screen mt-[3rem] md:px-[2rem]">
       {!keyword && <Header />}
 
       <main className="container mx-auto px-4 py-8">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
           <div className="space-y-2">
-            <h1 className="text-3xl font-bold tracking-tight">
+            <h1 className="text-2xl font-bold tracking-tight">
               Special Products
             </h1>
             <p className="text-gray-400">
@@ -85,12 +85,12 @@ const Home = () => {
           </Card>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {data.products.map((product) => (
+            {data.products.map((product, index) => (
               <div
                 key={product._id}
                 className="transform transition-all duration-300 hover:translate-y-[-4px]"
               >
-                <ProductDetails product={product} />
+                <Product product={product} />
               </div>
             ))}
           </div>

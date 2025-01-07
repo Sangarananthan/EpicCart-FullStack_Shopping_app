@@ -25,7 +25,7 @@ const AllProducts = () => {
   }
 
   return (
-    <div className=" mx-auto  p-6 lg:ml-20">
+    <div className=" mx-auto  p-6 mt-[3rem]">
       <div className="flex flex-col lg:flex-row gap-6">
         <div className="flex-1">
           <h2 className="text-2xl font-bold mb-6">

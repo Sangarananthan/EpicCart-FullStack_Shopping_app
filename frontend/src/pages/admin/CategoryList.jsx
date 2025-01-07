@@ -177,13 +177,13 @@ const EnhancedCategoryList = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-gray-50 p-6 mt-[3rem]">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="lg:ml-20 mx-auto"
       >
-        <h1 className="text-3xl font-bold text-gray-800 mb-8">
+        <h1 className="text-2xl font-bold text-gray-800 mb-8">
           Manage Categories
         </h1>
 

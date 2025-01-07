@@ -77,12 +77,12 @@ const AdminDashboard = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 lg:ml-20">
+    <div className="min-h-screen bg-gray-100 mt-[3rem] ">
       {/* Admin Menu Button */}
       <motion.button
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className="fixed bottom-4 right-4 z-50 bg-indigo-600 p-3 rounded-full shadow-lg text-white"
+        className="fixed bottom-4 right-4 z-50 bg-indigo-600 p-3 rounded-full  text-white"
         onClick={() => setIsMenuOpen(!isMenuOpen)}
       >
         {isMenuOpen ? <FaTimes size={20} /> : <FaBars size={20} />}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import {
   Carousel,
   CarouselContent,
@@ -25,6 +25,19 @@ import { Badge } from "../../components/ui/badge";
 const ProductCarousel = () => {
   const { data: products, isLoading, error } = useGetTopProductsQuery();
 
+  const carouselRef = useRef(null);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (carouselRef.current) {
+        // Call the next() method to go to the next slide
+        carouselRef.current.next();
+      }
+    }, 200); // Change slide every 2 seconds
+
+    return () => clearInterval(interval); // Cleanup interval on component unmount
+  }, []);
+
   if (isLoading) {
     return <Skeleton className="w-full aspect-square rounded-xl" />;
   }
@@ -46,6 +59,7 @@ const ProductCarousel = () => {
         loop: true,
       }}
       className="relative  aspect-square"
+      ref={carouselRef}
     >
       <h1 className="text-2xl  font-bold tracking-tight mb-[1rem]">
         Top Products

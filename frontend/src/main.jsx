@@ -9,17 +9,18 @@ import { Provider } from "react-redux";
 // Private Route
 import PrivateRoute from "./components/PrivateRoute.jsx";
 // Auth
-import Login from "./pages/auth/Login.jsx";
-import Register from "./pages/auth/Register.jsx";
 import Profile from "./pages/user/Profile.jsx";
 import AdminRoute from "./pages/admin/AdminRoute.jsx";
 import AdminDashboard from "./pages/admin/AdminDashboard.jsx";
 import CategoryList from "./pages/admin/CategoryList.jsx";
 import ProductCreateForm from "./pages/admin/ProductUpload.jsx";
 import AllProducts from "./pages/admin/AllProducts";
-import Home from "./Home.jsx";
+import Home from "./pages/Home.jsx";
 import Favorites from "./pages/products/Favorites.jsx";
 import ProductDetails from "./pages/products/ProductDetails.jsx";
+import Cart from "./pages/Cart.jsx";
+import Shop from "./pages/Shop.jsx";
+import { Login, Register } from "./pages/auth/Authenticate.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
@@ -30,6 +31,8 @@ const router = createBrowserRouter(
         <Route path="/profile" element={<Profile />} />
         <Route path="/favorite" element={<Favorites />} />
         <Route path="/product/:id" element={<ProductDetails />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/shop" element={<Shop />} />
       </Route>
 
       <Route path="/admin" element={<AdminRoute />}>
