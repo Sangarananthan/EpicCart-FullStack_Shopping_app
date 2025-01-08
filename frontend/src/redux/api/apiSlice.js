@@ -4,13 +4,9 @@ import { BASE_URL, USERs_URL } from "../constants";
 const baseQuery = fetchBaseQuery({
   baseUrl: BASE_URL,
   credentials: "include", // Add this
-  prepareHeaders: (headers) => {
+  prepareHeaders: (headers, { getState }) => {
     headers.set("Content-Type", "application/json");
-    // If you have authentication, you can add the token here
-    // const token = localStorage.getItem('token');
-    // if (token) {
-    //   headers.set('Authorization', `Bearer ${token}`);
-    // }
+    // Get token from cookie - the browser will automatically send it
     return headers;
   },
 });

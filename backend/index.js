@@ -48,7 +48,7 @@ app.use(
     optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
-    exposedHeaders: ["Content-Range", "X-Content-Range"],
+    exposedHeaders: ["Content-Range", "X-Content-Range", "Set-Cookie"],
     maxAge: 600, // Reduce preflight requests cache time
   })
 );
@@ -76,6 +76,11 @@ app.use("/api/uploads/", uploadRoutes);
 
 //  ORDER API
 app.use("/api/orders/", orderRoutes);
+
+// PAYPAL API
+app.get("/api/config/paypal", (req, res) => {
+  res.send({ clientId: process.env.PAYPAL_CLIENT_ID });
+});
 
 app.listen(PORT, () => {
   console.log(`Server running in ${NODE_ENV} mode on port ${PORT}`);

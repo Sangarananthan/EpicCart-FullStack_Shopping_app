@@ -13,11 +13,16 @@ const generateToken = (res, userId) => {
     expiresIn: "30d",
   });
 
+  // Adjust cookie settings based on environment
+  const isProduction = process.env.NODE_ENV === "production";
+
   res.cookie("jwt", token, {
     httpOnly: true,
-    secure: true,
-    sameSite: "none",
+    secure: isProduction, // true in production
+    sameSite: isProduction ? "none" : "lax",
     maxAge: 30 * 24 * 60 * 60 * 1000,
+    path: "/",
+    domain: isProduction ? ".onrender.com" : undefined, // Adjust this based on your domain
   });
 
   return token;

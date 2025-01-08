@@ -33,7 +33,7 @@ const Cart = () => {
 
   if (cartItems.length === 0) {
     return (
-      <div className="container mx-auto px-4 py-16 mt-[3rem] md:px-[2rem]">
+      <div className="container  mx-auto px-4 py-8 mt-[3rem] md:px-[2rem]">
         <div className="flex flex-col items-center justify-center text-center">
           <ShoppingBag className="w-16 h-16 text-gray-300 mb-4" />
           <h2 className="text-xl font-semibold text-gray-600 mb-2">
