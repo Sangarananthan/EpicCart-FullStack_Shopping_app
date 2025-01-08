@@ -66,7 +66,7 @@ const Cart = () => {
                     {/* Product Image */}
                     <div className="w-24 h-24 flex-shrink-0">
                       <img
-                        src={item.image}
+                        src={item.imageUrl}
                         alt={item.name}
                         className="w-full h-full object-cover rounded-lg"
                       />
@@ -76,7 +76,7 @@ const Cart = () => {
                     <div className="flex-1 min-w-0">
                       <Link
                         to={`/product/${item._id}`}
-                        className="text-lg font-medium hover:text-pink-500 transition-colors line-clamp-1"
+                        className="text-lg font-medium hover:text-orange-500 transition-colors line-clamp-1"
                       >
                         {item.name}
                       </Link>
@@ -162,7 +162,7 @@ const Cart = () => {
                 </div>
 
                 <Button
-                  className="w-full bg-pink-500 hover:bg-pink-600"
+                  className="w-full bg-orange-500 hover:bg-orange-600"
                   onClick={checkoutHandler}
                 >
                   Proceed to Checkout

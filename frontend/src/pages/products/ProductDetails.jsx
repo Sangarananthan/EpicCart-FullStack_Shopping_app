@@ -52,6 +52,7 @@ import {
 import { Textarea } from "../../components/ui/textarea";
 import Ratings from "../../components/Ratings";
 import { useGetCategoryQuery } from "../../redux/api/categoryApiSlice";
+import { addToCart } from "../../redux/features/cart/cartSlice";
 
 const ProductDetails = () => {
   const { id: productId } = useParams();
@@ -97,7 +98,7 @@ const ProductDetails = () => {
   };
 
   const addToCartHandler = () => {
-    // dispatch(addToCart({ ...product, qty }));
+    dispatch(addToCart({ ...product, qty }));
     navigate("/cart");
   };
 

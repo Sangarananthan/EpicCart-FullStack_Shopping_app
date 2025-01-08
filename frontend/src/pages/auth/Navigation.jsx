@@ -90,16 +90,16 @@ const Navigation = () => {
   const DesktopNav = () => (
     <NavigationMenu className="hidden lg:flex ">
       <NavigationMenuList>
-        <NavigationMenuItem>
+        <NavigationMenuItem className="hover:text-black ">
           <NavLink to="/" label="Home" />
         </NavigationMenuItem>
-        <NavigationMenuItem>
+        <NavigationMenuItem className="hover:text-black ">
           <NavLink to="/shop" label="Shop" />
         </NavigationMenuItem>
-        <NavigationMenuItem>
+        <NavigationMenuItem className="hover:text-black ">
           <NavLink to="/cart" label="Cart" />
         </NavigationMenuItem>
-        <NavigationMenuItem>
+        <NavigationMenuItem className="hover:text-black ">
           <NavLink to="/favorite" label="Favorites" />
         </NavigationMenuItem>
       </NavigationMenuList>
@@ -159,7 +159,10 @@ const Navigation = () => {
         <div className="ml-auto md:w-auto md:flex-none">
           <MobileNav />
         </div>
-        <Link to="/" className="mr-6 flex items-center space-x-2 ml-[1rem] lg:ml-0">
+        <Link
+          to="/"
+          className="mr-6 flex items-center space-x-2 ml-[1rem] lg:ml-0"
+        >
           <span className=" font-medium text-2xl font-bubblegum sm:inline-block">
             Epic cart
           </span>
@@ -175,7 +178,9 @@ const Navigation = () => {
         ) : (
           <div className="hidden lg:flex items-center gap-2">
             <Button variant="ghost" asChild>
-              <Link to="/login" className="bg-white text-black">Login</Link>
+              <Link to="/login" className="bg-white text-black">
+                Login
+              </Link>
             </Button>
             <Button asChild>
               <Link to="/register">Register</Link>
