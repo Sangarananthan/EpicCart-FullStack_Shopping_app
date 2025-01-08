@@ -25,18 +25,34 @@ const allowedOrigins = [
   "http://localhost:5173", // Vite's default port
   "http://localhost:3000",
   "http://localhost:5000",
-  "https://epic-cart-wheat.vercel.app/",
+  "https://epic-cart-wheat.vercel.app", // Remove trailing slash
   "https://epic-cart.onrender.com",
+  "https://epic-cart-pp6nbhnca-sangarananthans-projects.vercel.app", // Remove trailing slash
 ];
 
 app.use(
   cors({
-    origin: ["https://epic-cart-wheat.vercel.app/"],
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.indexOf(origin) === -1) {
+        const msg =
+          "The CORS policy for this site does not allow access from the specified Origin.";
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+    },
     credentials: true,
+    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    exposedHeaders: ["Content-Range", "X-Content-Range"],
+    maxAge: 600, // Reduce preflight requests cache time
   })
 );
 
+// Place these BEFORE routes
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
