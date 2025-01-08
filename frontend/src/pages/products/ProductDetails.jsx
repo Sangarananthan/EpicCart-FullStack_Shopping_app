@@ -122,7 +122,7 @@ const ProductDetails = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 mt-[3rem]">
-      <Button variant="ghost" asChild className="mb-6">
+      <Button variant="ghost" asChild className="mb-6 hidden md:block">
         <Link to="/">
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back
@@ -136,7 +136,7 @@ const ProductDetails = () => {
               <img
                 src={product.imageUrl}
                 alt={product.name}
-                className="w-full h-[35rem] lg:object-cover object-contain"
+                className="w-full h-[25rem] md:h-[35rem] object-cover"
                 loading="lazy"
               />
               <div className="absolute top-4 right-4">
