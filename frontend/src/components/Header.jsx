@@ -10,7 +10,7 @@ const Header = () => {
   if (error) return <h1>ERROR</h1>;
 
   return (
-    <div className="container mx-auto px-4 py-6">
+    <div className="container mx-auto">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
         {/* Square Carousel */}
         <div className="col-span-1 md:col-span-12 lg:col-span-6 xl:col-span-6">

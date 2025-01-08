@@ -182,10 +182,7 @@ const filterProducts = asyncHandler(async (req, res) => {
 
   const products = await Product.find(args);
 
-  res.status(200).json({
-    products,
-    message: "Filtered products retrieved successfully",
-  });
+  res.status(200).json(products);
 });
 
 //  FETCH SIMILAR CATEGORY PRODUCTS

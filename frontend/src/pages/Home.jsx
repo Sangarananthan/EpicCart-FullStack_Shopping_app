@@ -50,7 +50,7 @@ const Home = () => {
   }
 
   return (
-    <div className="min-h-screen mt-[3rem] md:px-[2rem]">
+    <div className="container mx-auto px-4 py-8 mt-[3rem] md:px-[2rem]">
       {!keyword && <Header />}
 
       <main className="container mx-auto px-4 py-8">

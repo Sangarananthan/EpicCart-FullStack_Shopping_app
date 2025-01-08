@@ -6,7 +6,7 @@ import HeartIcon from "../../components/HeartIcon";
 
 const SmallProduct = ({ product }) => {
   return (
-    <Card className="h-full overflow-hidden group">
+    <Card className="h-full overflow-hidden group bg-neutral-100">
       <div className="relative aspect-[4/3]">
         <img
           src={product.imageUrl}

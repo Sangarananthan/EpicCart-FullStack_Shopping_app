@@ -6,7 +6,7 @@ import { Link } from "react-router";
 
 const Favorites = () => {
   const favorites = getFavoritesFromLocalStorage();
-  useEffect(() => {});
+  useEffect(() => {}, [localStorage.getItem("favorites")]);
   return (
     <div className=" mx-auto px-4 py-8 mt-[3rem] md:px-[2rem]">
       <div className="mb-8">

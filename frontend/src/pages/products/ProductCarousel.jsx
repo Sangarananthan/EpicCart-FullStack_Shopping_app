@@ -21,23 +21,11 @@ import { Skeleton } from "../../components/ui/skeleton";
 import { Alert, AlertDescription } from "../../components/ui/alert";
 import { Button } from "../../components/ui/button";
 import { Badge } from "../../components/ui/badge";
-
+import Autoplay from "embla-carousel-autoplay";
+import useEmblaCarousel from "embla-carousel-react";
 const ProductCarousel = () => {
   const { data: products, isLoading, error } = useGetTopProductsQuery();
-
-  const carouselRef = useRef(null);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (carouselRef.current) {
-        // Call the next() method to go to the next slide
-        carouselRef.current.next();
-      }
-    }, 200); // Change slide every 2 seconds
-
-    return () => clearInterval(interval); // Cleanup interval on component unmount
-  }, []);
-
+  const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay()]);
   if (isLoading) {
     return <Skeleton className="w-full aspect-square rounded-xl" />;
   }
@@ -58,21 +46,21 @@ const ProductCarousel = () => {
         align: "start",
         loop: true,
       }}
-      className="relative  aspect-square"
-      ref={carouselRef}
+      className="relative aspect-square embla"
+      ref={emblaRef}
     >
-      <h1 className="text-2xl  font-bold tracking-tight mb-[1rem]">
+      <h1 className="text-2xl font-bold tracking-tight mb-[1rem]">
         Top Products
       </h1>
       <CarouselContent>
         {products.products.map((product) => (
-          <CarouselItem key={product._id} className="relative">
+          <CarouselItem key={product._id} className="relative embla__slide">
             {/* Background Image */}
             <div className="relative w-full aspect-square">
               <img
                 src={product.imageUrl}
                 alt={product.name}
-                className="absolute inset-0 w-full h-full object-contain rounded-xl"
+                className="absolute inset-0 w-full h-full object-cover rounded-xl"
               />
 
               {/* Gradient Overlay */}

@@ -55,7 +55,8 @@ const Cart = () => {
 
   return (
     <div className="container mx-auto px-4 py-8 mt-[3rem] md:px-[2rem]">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <h1 className="text-2xl font-bold">Proceed payment {`(${cartItems.length})`}</h1>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-[2rem]">
         {/* Cart Items */}
         <div className="lg:col-span-8">
           <Card>
