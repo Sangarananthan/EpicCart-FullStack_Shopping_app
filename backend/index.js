@@ -9,6 +9,7 @@ import userRoutes from "./routes/userRoutes.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
+import orderRoutes from "./routes/orderRoutes.js";
 
 dotenv.config({
   path: resolve(dirname(fileURLToPath(import.meta.url)), "../.env"),
@@ -74,7 +75,7 @@ app.use("/api/products/", productRoutes);
 app.use("/api/uploads/", uploadRoutes);
 
 //  ORDER API
-// app.use("/api/orders/", orderRoutes);
+app.use("/api/orders/", orderRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running in ${NODE_ENV} mode on port ${PORT}`);
