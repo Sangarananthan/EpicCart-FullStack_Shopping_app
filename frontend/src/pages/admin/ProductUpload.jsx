@@ -155,7 +155,7 @@ const ProductCreateForm = () => {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="min-h-screen bg-gray-50 p-6 mt-[3rem]"
+      className="min-h-screen  mx-auto px-4 py-8 md:px-[2rem] bg-gray-50 p-6 mt-[3rem]"
     >
       {isUpdate && productLoading ? (
         <Loader />

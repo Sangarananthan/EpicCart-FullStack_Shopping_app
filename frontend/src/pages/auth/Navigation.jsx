@@ -163,9 +163,7 @@ const Navigation = () => {
           to="/"
           className="mr-6 flex items-center space-x-2 ml-[1rem] lg:ml-0"
         >
-          <span className=" font-medium text-2xl font-bubblegum sm:inline-block">
-            Epic cart
-          </span>
+          <span className=" font-bold text-2xl sm:inline-block">EPIC CART</span>
         </Link>
         <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
           <div className="mr-4 hidden md:flex">

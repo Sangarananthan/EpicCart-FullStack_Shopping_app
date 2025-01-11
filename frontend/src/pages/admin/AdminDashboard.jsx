@@ -1,14 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
-import {
-  FaTimes,
-  FaTrash,
-  FaEdit,
-  FaCheck,
-  FaBars,
-  FaUserCog,
-} from "react-icons/fa";
-import { motion, AnimatePresence } from "framer-motion";
+import { FaTrash, FaEdit, FaCheck } from "react-icons/fa";
+import { motion } from "framer-motion";
 import {
   useDeleteUserByIdMutation,
   useGetAllUSerQuery,
@@ -18,6 +10,7 @@ import { Loader } from "lucide-react";
 import Message from "../../components/Message";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import AdminMenu from "../../components/AdminMenu";
 
 const AdminDashboard = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -26,7 +19,7 @@ const AdminDashboard = () => {
   const [editableUserEmail, setEditableUserEmail] = useState("");
   const dispatch = useDispatch();
 
-  // get all user
+  // get all users
   const { data, refetch, isLoading, error } = useGetAllUSerQuery();
   useEffect(() => {
     refetch();
@@ -47,12 +40,15 @@ const AdminDashboard = () => {
       toast.error(err?.data?.message || err.error);
     }
   };
+
   const toggleEdit = (id, username, email) => {
     setEditableUserId(id);
     setEditableUserName(username);
     setEditableUserEmail(email);
   };
 
+  //delete user by id
+  const [deleteUserById] = useDeleteUserByIdMutation();
   const deleteHandler = async (id) => {
     if (window.confirm("Are you sure")) {
       try {
@@ -64,66 +60,9 @@ const AdminDashboard = () => {
     }
   };
 
-  //delete user by id
-  const [deleteUserById] = useDeleteUserByIdMutation();
-
-  const menuItems = [
-    { path: "/admin/dashboard", label: "Dashboard", icon: FaUserCog },
-    { path: "/admin/categorylist", label: "Categories" },
-    { path: "/admin/productlist", label: "Add Product" },
-    { path: "/admin/allproducts", label: "All Products" },
-    { path: "/admin/userlist", label: "Users" },
-    { path: "/admin/orderlist", label: "Orders" },
-  ];
-
   return (
-    <div className="min-h-screen bg-gray-100 mt-[3rem] ">
-      {/* Admin Menu Button */}
-      <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        className="fixed bottom-4 right-4 z-50 bg-indigo-600 p-3 rounded-full  text-white"
-        onClick={() => setIsMenuOpen(!isMenuOpen)}
-      >
-        {isMenuOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
-      </motion.button>
-
-      {/* Sidebar Menu */}
-      <AnimatePresence>
-        {isMenuOpen && (
-          <motion.div
-            initial={{ x: 300, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: 300, opacity: 0 }}
-            className="fixed right-0 top-0 h-full w-64 bg-white shadow-2xl z-40"
-          >
-            <div className="p-6 space-y-4">
-              {menuItems.map((item, index) => (
-                <motion.div
-                  key={item.path}
-                  initial={{ x: 50, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: index * 0.1 }}
-                >
-                  <NavLink
-                    to={item.path}
-                    className={({ isActive }) =>
-                      `flex items-center p-3 rounded-lg transition-all ${
-                        isActive
-                          ? "bg-indigo-100 text-indigo-600"
-                          : "hover:bg-gray-100"
-                      }`
-                    }
-                  >
-                    {item.icon ? <item.icon className="mr-3" /> : null}
-                    {item.label}
-                  </NavLink>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+    <div className="min-h-screen bg-gray-100 mx-auto px-4 py-8 mt-[3rem] md:px-[2rem]">
+      <AdminMenu isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
 
       {/* Main Content */}
       {isLoading ? (
@@ -172,16 +111,14 @@ const AdminDashboard = () => {
                     >
                       <td className="px-6 py-4">
                         {editableUserId === user._id ? (
-                          <>
-                            <input
-                              type="text"
-                              value={editableUserName}
-                              onChange={(e) =>
-                                setEditableUserName(e.target.value)
-                              }
-                              className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
-                            />
-                          </>
+                          <input
+                            type="text"
+                            value={editableUserName}
+                            onChange={(e) =>
+                              setEditableUserName(e.target.value)
+                            }
+                            className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                          />
                         ) : (
                           <div className="flex items-center">
                             <div className="h-10 w-10 rounded-full bg-blue-500 flex items-center justify-center">
@@ -197,16 +134,14 @@ const AdminDashboard = () => {
                       </td>
                       <td className="px-6 py-4">
                         {editableUserId === user._id ? (
-                          <>
-                            <input
-                              type="text"
-                              value={editableUserEmail}
-                              onChange={(e) =>
-                                setEditableUserEmail(e.target.value)
-                              }
-                              className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
-                            />
-                          </>
+                          <input
+                            type="text"
+                            value={editableUserEmail}
+                            onChange={(e) =>
+                              setEditableUserEmail(e.target.value)
+                            }
+                            className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                          />
                         ) : (
                           <div className="flex items-center">
                             <span className="ml-4 font-medium text-gray-900">
@@ -226,10 +161,9 @@ const AdminDashboard = () => {
                           {user.isAdmin ? "Admin" : "User"}
                         </span>
                       </td>
-
                       <td className="px-6 py-4">
                         <div className="flex space-x-3">
-                          {editableUserId == user._id ? (
+                          {editableUserId === user._id ? (
                             <button
                               onClick={() => updateHandler(user._id)}
                               className="ml-2 bg-blue-500 text-white py-2 px-4 rounded-lg"

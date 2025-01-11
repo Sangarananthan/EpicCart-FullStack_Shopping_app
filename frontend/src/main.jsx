@@ -25,6 +25,9 @@ import { Login, Register } from "./pages/auth/Authenticate.jsx";
 import Shipping from "./pages/orders/Shipping.jsx";
 import PlaceOrder from "./pages/orders/PlaceOrder.jsx";
 import Order from "./pages/orders/Order.jsx";
+import UserOrder from "./pages/user/UserOrder.jsx";
+import OrderList from "./pages/admin/OrderList.jsx";
+import Dashboard from "./pages/admin/Dashboard.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
@@ -35,6 +38,7 @@ const router = createBrowserRouter(
       <Route path="/product/:id" element={<ProductDetails />} />
       <Route path="/cart" element={<Cart />} />
       <Route path="/shop" element={<Shop />} />
+      <Route path="user-orders" element={<UserOrder />} />
 
       {/* Registered users */}
       <Route path="" element={<PrivateRoute />}>
@@ -50,6 +54,8 @@ const router = createBrowserRouter(
         <Route path="productlist" element={<ProductCreateForm />} />
         <Route path="product/update/:_id" element={<ProductCreateForm />} />
         <Route path="allProducts" element={<AllProducts />} />
+        <Route path="orderlist" element={<OrderList />} />
+        <Route path="dashboard" element={<Dashboard />} />
       </Route>
     </Route>
   )
