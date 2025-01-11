@@ -26,28 +26,36 @@ import {
 } from "../../redux/api/orderApiSlice";
 
 const Order = () => {
+  // Get order ID from URL parameters
   const { id: orderId } = useParams();
+
+  // Redux queries and mutations
   const {
     data: order,
     refetch,
     isLoading,
     error,
   } = useGetOrderDetailsQuery(orderId);
+  const orderData = order?.data;
 
   const [payOrder, { isLoading: loadingPay }] = usePayOrderMutation();
   const [deliverOrder, { isLoading: loadingDeliver }] =
     useDeliverOrderMutation();
-  const { userInfo } = useSelector((state) => state.auth);
-  const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
 
+  // Get user info from Redux store
+  const { userInfo } = useSelector((state) => state.auth);
+
+  // PayPal hooks
+  const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
   const {
     data: paypal,
     isLoading: loadingPayPal,
     error: errorPayPal,
   } = useGetPaypalClientIdQuery();
 
+  // Load PayPal script
   useEffect(() => {
-    if (!errorPayPal && !loadingPayPal && paypal?.clientId) {
+    if (!errorPayPal && !loadingPayPal && paypal?.clientId && !window.paypal) {
       const loadPayPalScript = async () => {
         paypalDispatch({
           type: "resetOptions",
@@ -59,12 +67,13 @@ const Order = () => {
         paypalDispatch({ type: "setLoadingStatus", value: "pending" });
       };
 
-      if (order && !order.isPaid && !window.paypal) {
+      if (orderData && !orderData.isPaid) {
         loadPayPalScript();
       }
     }
-  }, [errorPayPal, loadingPayPal, order, paypal, paypalDispatch]);
+  }, [errorPayPal, loadingPayPal, orderData, paypal, paypalDispatch]);
 
+  // PayPal handlers
   const onApprove = (data, actions) => {
     return actions.order.capture().then(async function (details) {
       try {
@@ -80,7 +89,7 @@ const Order = () => {
   const createOrder = (data, actions) => {
     return actions.order
       .create({
-        purchase_units: [{ amount: { value: order.totalPrice } }],
+        purchase_units: [{ amount: { value: orderData.totalPrice } }],
       })
       .then((orderID) => orderID);
   };
@@ -89,6 +98,7 @@ const Order = () => {
     toast.error(err.message);
   };
 
+  // Delivery handler for admin
   const deliverHandler = async () => {
     try {
       await deliverOrder(orderId);
@@ -99,16 +109,20 @@ const Order = () => {
     }
   };
 
+  // Loading and error states
   if (isLoading) return <Loader />;
-  if (error)
+  if (error || !orderData) {
     return (
       <Alert variant="destructive">
-        <AlertDescription>{error.data.message}</AlertDescription>
+        <AlertDescription>
+          {error?.data?.message || "Failed to load order details"}
+        </AlertDescription>
       </Alert>
     );
+  }
 
   return (
-    <div className="container  mx-auto px-4 py-8 mt-[3rem] md:px-[2rem]">
+    <div className="container mx-auto px-4 py-8 mt-[3rem] md:px-[2rem]">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Order Details Section */}
         <div className="lg:col-span-2">
@@ -117,7 +131,7 @@ const Order = () => {
               <CardTitle>Order Items</CardTitle>
             </CardHeader>
             <CardContent>
-              {order.orderItems.length === 0 ? (
+              {orderData.orderItems.length === 0 ? (
                 <Alert>
                   <AlertDescription>Order is empty</AlertDescription>
                 </Alert>
@@ -134,11 +148,11 @@ const Order = () => {
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      {order.orderItems.map((item, index) => (
+                      {orderData.orderItems.map((item, index) => (
                         <TableRow key={index}>
                           <TableCell>
                             <img
-                              src={item.image}
+                              src={item.imageUrl}
                               alt={item.name}
                               className="w-16 h-16 object-cover rounded"
                             />
@@ -179,28 +193,41 @@ const Order = () => {
             <CardContent className="space-y-4">
               <div>
                 <p className="text-sm text-muted-foreground">Order ID</p>
-                <p className="font-medium">{order._id}</p>
+                <p className="font-medium">{orderData._id}</p>
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">Customer</p>
-                <p className="font-medium">{order.user.username}</p>
-                <p className="text-sm">{order.user.email}</p>
+                <p className="font-medium">{orderData.user.username}</p>
+                <p className="text-sm">{orderData.user.email}</p>
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">
                   Shipping Address
                 </p>
                 <p className="font-medium">
-                  {order.shippingAddress.address}, {order.shippingAddress.city}
+                  {orderData.shippingAddress.address},{" "}
+                  {orderData.shippingAddress.city}
                   <br />
-                  {order.shippingAddress.postalCode},{" "}
-                  {order.shippingAddress.country}
+                  {orderData.shippingAddress.postalCode},{" "}
+                  {orderData.shippingAddress.country}
                 </p>
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">Payment Status</p>
-                <Badge variant={order.isPaid ? "success" : "destructive"}>
-                  {order.isPaid ? `Paid on ${order.paidAt}` : "Not Paid"}
+                <Badge variant={orderData.isPaid ? "success" : "destructive"}>
+                  {orderData.isPaid
+                    ? `Paid on ${orderData.paidAt}`
+                    : "Not Paid"}
+                </Badge>
+              </div>
+              <div>
+                <p className="text-sm text-muted-foreground">Delivery Status</p>
+                <Badge
+                  variant={orderData.isDelivered ? "success" : "secondary"}
+                >
+                  {orderData.isDelivered
+                    ? `Delivered on ${orderData.deliveredAt}`
+                    : "Not Delivered"}
                 </Badge>
               </div>
             </CardContent>
@@ -213,23 +240,23 @@ const Order = () => {
             <CardContent className="space-y-4">
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Items</span>
-                <span className="font-medium">${order.itemsPrice}</span>
+                <span className="font-medium">${orderData.itemsPrice}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Shipping</span>
-                <span className="font-medium">${order.shippingPrice}</span>
+                <span className="font-medium">${orderData.shippingPrice}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Tax</span>
-                <span className="font-medium">${order.taxPrice}</span>
+                <span className="font-medium">${orderData.taxPrice}</span>
               </div>
               <Separator />
               <div className="flex justify-between">
                 <span className="font-bold">Total</span>
-                <span className="font-bold">${order.totalPrice}</span>
+                <span className="font-bold">${orderData.totalPrice}</span>
               </div>
 
-              {!order.isPaid && (
+              {!orderData.isPaid && (
                 <div className="space-y-4">
                   {loadingPay && <Loader />}
                   {isPending ? (
@@ -245,15 +272,17 @@ const Order = () => {
               )}
 
               {loadingDeliver && <Loader />}
-              {userInfo?.isAdmin && order.isPaid && !order.isDelivered && (
-                <Button
-                  className="w-full"
-                  onClick={deliverHandler}
-                  disabled={loadingDeliver}
-                >
-                  Mark As Delivered
-                </Button>
-              )}
+              {userInfo?.isAdmin &&
+                orderData.isPaid &&
+                !orderData.isDelivered && (
+                  <Button
+                    className="w-full"
+                    onClick={deliverHandler}
+                    disabled={loadingDeliver}
+                  >
+                    Mark As Delivered
+                  </Button>
+                )}
             </CardContent>
           </Card>
         </div>

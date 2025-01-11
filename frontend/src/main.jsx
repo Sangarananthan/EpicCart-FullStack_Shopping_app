@@ -4,6 +4,7 @@ import "./index.css";
 import { Route, RouterProvider, createRoutesFromElements } from "react-router";
 import { createBrowserRouter } from "react-router-dom";
 import store from "./redux/store.js";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import { Provider } from "react-redux";
 
 // Private Route
@@ -56,8 +57,16 @@ const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
-    <RouterProvider router={router}>
-      <App />
-    </RouterProvider>
+    <PayPalScriptProvider
+      options={{
+        "client-id":
+          "AUAEPBH85QeNLtIgfZw13tRtQvWnQKtwXOy1ihkMPeHs4EABP_5hQ6LWz1VBdWz5RZbpkOWV5VVk9J0w",
+        currency: "USD",
+      }}
+    >
+      <RouterProvider router={router}>
+        <App />
+      </RouterProvider>
+    </PayPalScriptProvider>
   </Provider>
 );

@@ -39,7 +39,7 @@ const PlaceOrder = () => {
 
   const placeOrderHandler = async () => {
     try {
-      const res = await createOrder({
+      const response = await createOrder({
         orderItems: cart.cartItems,
         shippingAddress: cart.shippingAddress,
         paymentMethod: cart.paymentMethod,
@@ -47,9 +47,9 @@ const PlaceOrder = () => {
         shippingPrice: cart.shippingPrice,
         taxPrice: cart.taxPrice,
         totalPrice: cart.totalPrice,
-      }).unwrap();
+      });
       dispatch(clearCartItems());
-      navigate(`/order/${res._id}`);
+      navigate(`/order/${response.data.data._id}`);
       toast.success("Order placed successfully");
     } catch (err) {
       toast.error(err?.data?.message || "Error placing order");
