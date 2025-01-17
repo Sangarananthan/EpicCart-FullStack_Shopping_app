@@ -10,11 +10,22 @@ export default defineConfig({
       "/uploads/": "http://localhost:5000",
     },
   },
-
   resolve: {
     alias: {
       "lucide-react": "lucide-react/dist/esm/lucide-react",
-      "@": path.resolve(path.dirname(new URL(import.meta.url).pathname), './src')
+      "@": path.resolve(
+        path.dirname(new URL(import.meta.url).pathname),
+        "./src"
+      ),
+    },
+  },
+  optimizeDeps: {
+    include: ["recharts"],
+  },
+  build: {
+    commonjsOptions: {
+      include: [/recharts/, /node_modules/],
     },
   },
 });
+
