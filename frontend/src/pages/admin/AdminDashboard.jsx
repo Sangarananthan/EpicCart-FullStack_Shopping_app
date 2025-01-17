@@ -1,32 +1,50 @@
 import React, { useState, useEffect } from "react";
-import { FaTrash, FaEdit, FaCheck } from "react-icons/fa";
-import { motion } from "framer-motion";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "../../components/ui/table";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "../../components/ui/card";
+import { Input } from "../../components/ui/input";
+import { Button } from "../../components/ui/button";
+import { Loader2, Trash2, PencilIcon, CheckCircle } from "lucide-react";
+import { toast } from "react-toastify";
 import {
   useDeleteUserByIdMutation,
   useGetAllUSerQuery,
   useUpdateUserByIdMutation,
 } from "../../redux/api/userApiSlice";
-import { Loader } from "lucide-react";
-import Message from "../../components/Message";
-import { useDispatch } from "react-redux";
-import { toast } from "react-toastify";
-import AdminMenu from "../../components/AdminMenu";
 
-const AdminDashboard = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+const UsersManagement = () => {
   const [editableUserId, setEditableUserId] = useState(null);
   const [editableUserName, setEditableUserName] = useState("");
   const [editableUserEmail, setEditableUserEmail] = useState("");
-  const dispatch = useDispatch();
 
-  // get all users
+  // Fetch all users
   const { data, refetch, isLoading, error } = useGetAllUSerQuery();
+
+  // Update and Delete mutations
+  const [updateUserById] = useUpdateUserByIdMutation();
+  const [deleteUserById] = useDeleteUserByIdMutation();
+
   useEffect(() => {
     refetch();
   }, [refetch]);
 
-  //update user by id
-  const [updateUserById] = useUpdateUserByIdMutation();
+  const toggleEdit = (id, username, email) => {
+    setEditableUserId(id);
+    setEditableUserName(username);
+    setEditableUserEmail(email);
+  };
+
   const updateHandler = async (id) => {
     try {
       await updateUserById({
@@ -35,24 +53,18 @@ const AdminDashboard = () => {
         email: editableUserEmail,
       });
       setEditableUserId(null);
+      toast.success("User updated successfully");
       refetch();
     } catch (err) {
       toast.error(err?.data?.message || err.error);
     }
   };
 
-  const toggleEdit = (id, username, email) => {
-    setEditableUserId(id);
-    setEditableUserName(username);
-    setEditableUserEmail(email);
-  };
-
-  //delete user by id
-  const [deleteUserById] = useDeleteUserByIdMutation();
   const deleteHandler = async (id) => {
-    if (window.confirm("Are you sure")) {
+    if (window.confirm("Are you sure you want to delete this user?")) {
       try {
         await deleteUserById(id);
+        toast.success("User deleted successfully");
         refetch();
       } catch (err) {
         toast.error(err?.data?.message || err.error);
@@ -60,147 +72,125 @@ const AdminDashboard = () => {
     }
   };
 
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center min-h-[400px]">
+        <Loader2 className="h-8 w-8 animate-spin" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="p-4 text-red-600 bg-red-50 rounded-md">
+        {error?.data?.message || error.error}
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen bg-gray-100 mx-auto px-4 py-8 mt-[3rem] md:px-[2rem]">
-      <AdminMenu isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
-
-      {/* Main Content */}
-      {isLoading ? (
-        <Loader />
-      ) : error ? (
-        <Message variant="danger">
-          {error?.data?.message || error.error}
-        </Message>
-      ) : (
-        <div className="p-6 md:ml-0">
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            className="bg-white rounded-xl shadow-2xl p-6"
-          >
-            <h1 className="text-2xl font-bold text-gray-800 mb-6">
-              Manage Users
-            </h1>
-
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="bg-gray-100">
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      User
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Email
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Role
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Actions
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200">
-                  {data.map((user, index) => (
-                    <motion.tr
-                      key={user._id}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.1 }}
-                      className="hover:bg-gray-50"
-                    >
-                      <td className="px-6 py-4">
-                        {editableUserId === user._id ? (
-                          <input
-                            type="text"
-                            value={editableUserName}
-                            onChange={(e) =>
-                              setEditableUserName(e.target.value)
-                            }
-                            className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
-                          />
-                        ) : (
-                          <div className="flex items-center">
-                            <div className="h-10 w-10 rounded-full bg-blue-500 flex items-center justify-center">
-                              <span className="text-indigo-100 font-medium">
-                                {user.username.charAt(0).toUpperCase()}
-                              </span>
-                            </div>
-                            <span className="ml-4 font-medium text-gray-900">
-                              {user.username}
-                            </span>
-                          </div>
-                        )}
-                      </td>
-                      <td className="px-6 py-4">
-                        {editableUserId === user._id ? (
-                          <input
-                            type="text"
-                            value={editableUserEmail}
-                            onChange={(e) =>
-                              setEditableUserEmail(e.target.value)
-                            }
-                            className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
-                          />
-                        ) : (
-                          <div className="flex items-center">
-                            <span className="ml-4 font-medium text-gray-900">
-                              {user.email}
-                            </span>
-                          </div>
-                        )}
-                      </td>
-                      <td className="px-6 py-4">
-                        <span
-                          className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                            user.isAdmin
-                              ? "bg-green-100 text-green-800"
-                              : "bg-gray-100 text-gray-800"
-                          }`}
-                        >
-                          {user.isAdmin ? "Admin" : "User"}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4">
-                        <div className="flex space-x-3">
-                          {editableUserId === user._id ? (
-                            <button
-                              onClick={() => updateHandler(user._id)}
-                              className="ml-2 bg-blue-500 text-white py-2 px-4 rounded-lg"
-                            >
-                              <FaCheck />
-                            </button>
-                          ) : (
-                            <button
-                              onClick={() =>
-                                toggleEdit(user._id, user.username, user.email)
-                              }
-                            >
-                              <FaEdit className="ml-[1rem]" />
-                            </button>
-                          )}
-                          {!user.isAdmin && (
-                            <motion.button
-                              whileHover={{ scale: 1.1 }}
-                              whileTap={{ scale: 0.9 }}
-                              onClick={() => deleteHandler(user._id)}
-                              className="text-red-600 hover:text-red-900"
-                            >
-                              <FaTrash size={18} />
-                            </motion.button>
-                          )}
+    <Card className="w-full">
+      <CardHeader>
+        <CardTitle className="text-2xl font-bold">Manage Users</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="rounded-md border">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="w-[200px]">User</TableHead>
+                <TableHead className="min-w-[200px]">Email</TableHead>
+                <TableHead className="w-[100px]">Role</TableHead>
+                <TableHead className="w-[100px]">Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {data?.map((user) => (
+                <TableRow key={user._id}>
+                  <TableCell>
+                    {editableUserId === user._id ? (
+                      <Input
+                        value={editableUserName}
+                        onChange={(e) => setEditableUserName(e.target.value)}
+                        className="max-w-[180px]"
+                      />
+                    ) : (
+                      <div className="flex items-center gap-2">
+                        <div className="h-8 w-8 rounded-full bg-blue-500 flex items-center justify-center">
+                          <span className="text-white font-medium">
+                            {user.username.charAt(0).toUpperCase()}
+                          </span>
                         </div>
-                      </td>
-                    </motion.tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </motion.div>
+                        <span className="font-medium">{user.username}</span>
+                      </div>
+                    )}
+                  </TableCell>
+                  <TableCell>
+                    {editableUserId === user._id ? (
+                      <Input
+                        value={editableUserEmail}
+                        onChange={(e) => setEditableUserEmail(e.target.value)}
+                        className="max-w-[180px]"
+                        type="email"
+                      />
+                    ) : (
+                      user.email
+                    )}
+                  </TableCell>
+                  <TableCell>
+                    <span
+                      className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset ${
+                        user.isAdmin
+                          ? "bg-green-50 text-green-700 ring-green-600/20"
+                          : "bg-gray-50 text-gray-600 ring-gray-500/10"
+                      }`}
+                    >
+                      {user.isAdmin ? "Admin" : "User"}
+                    </span>
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex items-center gap-2">
+                      {editableUserId === user._id ? (
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => updateHandler(user._id)}
+                          className="hover:bg-green-50"
+                        >
+                          <CheckCircle className="h-4 w-4" />
+                        </Button>
+                      ) : (
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() =>
+                            toggleEdit(user._id, user.username, user.email)
+                          }
+                          className="hover:bg-blue-50"
+                        >
+                          <PencilIcon className="h-4 w-4" />
+                        </Button>
+                      )}
+                      {!user.isAdmin && (
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="text-red-600 hover:bg-red-50"
+                          onClick={() => deleteHandler(user._id)}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      )}
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
         </div>
-      )}
-    </div>
+      </CardContent>
+    </Card>
   );
 };
 
-export default AdminDashboard;
+export default UsersManagement;

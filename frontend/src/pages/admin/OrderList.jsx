@@ -82,7 +82,7 @@ const OrderList = () => {
     );
 
   return (
-    <div className=" mx-auto px-4 py-8 mt-[3rem] md:px-[2rem]">
+    <div className="min-h-screen bg-gray-50 px-4 py-3 mt-[3rem]">
       <AdminMenu />
 
       <div className="mt-6">
