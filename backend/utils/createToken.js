@@ -19,7 +19,7 @@ const generateToken = (res, userId) => {
   res.cookie("jwt", token, {
     httpOnly: true,
     secure: true, // Always true since you're using HTTPS in both environments
-    sameSite: "none", // Required for cross-origin requests
+    sameSite: "None", // Required for cross-origin requests
     maxAge: 30 * 24 * 60 * 60 * 1000,
     path: "/",
     // Remove domain setting as it might be causing issues
