@@ -21,42 +21,51 @@ connectDb();
 
 const app = express();
 
-// CORS Configuration
+// Place these BEFORE routes
+app.use(cookieParser());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 const allowedOrigins = [
-  "http://localhost:5173", // Vite's default port
+  "http://localhost:5173",
   "http://localhost:3000",
   "http://localhost:5000",
-  "https://epic-cart-wheat.vercel.app", // Remove trailing slash
+  "https://epic-cart-wheat.vercel.app",
   "https://epic-cart.onrender.com",
-  "https://epic-cart-pp6nbhnca-sangarananthans-projects.vercel.app", // Remove trailing slash
+  "https://epic-cart-pp6nbhnca-sangarananthans-projects.vercel.app",
+  // Add this to handle Vercel preview deployments
+  /^https:\/\/epic-cart.*\.vercel\.app$/,
 ];
 
 app.use(
   cors({
     origin: function (origin, callback) {
-      // Allow requests with no origin (like mobile apps or curl requests)
       if (!origin) return callback(null, true);
 
-      if (allowedOrigins.indexOf(origin) === -1) {
-        const msg =
-          "The CORS policy for this site does not allow access from the specified Origin.";
-        return callback(new Error(msg), false);
+      // Check exact matches first
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
       }
-      return callback(null, true);
+
+      // Check regex patterns for Vercel preview URLs
+      const isVercelPreview = allowedOrigins.some((allowedOrigin) => {
+        return allowedOrigin instanceof RegExp && allowedOrigin.test(origin);
+      });
+
+      if (isVercelPreview) {
+        return callback(null, true);
+      }
+
+      const msg = "Origin not allowed by CORS";
+      return callback(new Error(msg), false);
     },
     credentials: true,
-    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+    optionsSuccessStatus: 200,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
-    exposedHeaders: ["Content-Range", "X-Content-Range", "Set-Cookie"],
-    maxAge: 600, // Reduce preflight requests cache time
   })
 );
 
-// Place these BEFORE routes
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
 
 app.get("/", (req, res) => {
   res.send("Hello World");

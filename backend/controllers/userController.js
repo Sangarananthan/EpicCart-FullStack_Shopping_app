@@ -4,21 +4,18 @@ import bcrypt from "bcryptjs";
 import createToken from "../utils/createToken.js";
 
 // CREATING AN USER
-
 const createUser = asyncHandler(async (req, res) => {
   const { username, email, password } = req.body;
 
   if (!username || !email || !password) {
-    return res.status(400).json({
-      message: "Please fill all fields",
-    });
+    res.status(400);
+    throw new Error("Please fill all fields");
   }
 
   const existUser = await User.findOne({ email });
   if (existUser) {
-    return res.status(400).json({
-      message: "User already exists",
-    });
+    res.status(400);
+    throw new Error("User already exists");
   }
 
   const salt = await bcrypt.genSalt(10);
@@ -30,13 +27,21 @@ const createUser = asyncHandler(async (req, res) => {
     password: hashedPassword,
   });
 
-  await user.save();
-  createToken(res, user._id);
+  if (user) {
+    // Generate token
+    generateToken(res, user._id);
 
-  res.status(201).json({
-    user,
-    message: "Registration successful! Welcome to our platform!",
-  });
+    res.status(201).json({
+      _id: user._id,
+      username: user.username,
+      email: user.email,
+      isAdmin: user.isAdmin,
+      message: "Registration successful! Welcome to our platform!",
+    });
+  } else {
+    res.status(400);
+    throw new Error("Invalid user data");
+  }
 });
 
 // LOGIN USER
@@ -70,8 +75,12 @@ const loginUser = asyncHandler(async (req, res) => {
 const logoutCurrentUser = asyncHandler(async (req, res) => {
   res.cookie("jwt", "", {
     httpOnly: true,
+    secure: true,
+    sameSite: "none",
     expires: new Date(0),
+    path: "/",
   });
+
   res.status(200).json({ message: "Logged out successfully" });
 });
 
