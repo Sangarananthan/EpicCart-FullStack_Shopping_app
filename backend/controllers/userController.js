@@ -1,7 +1,7 @@
 import User from "../models/userModel.js";
 import asyncHandler from "../middlewares/asyncHandler.js";
 import bcrypt from "bcryptjs";
-import createToken from "../utils/createToken.js";
+import generateToken from "../utils/createToken.js";
 
 // CREATING AN USER
 const createUser = asyncHandler(async (req, res) => {
@@ -36,7 +36,7 @@ const createUser = asyncHandler(async (req, res) => {
       username: user.username,
       email: user.email,
       isAdmin: user.isAdmin,
-      message: "Registration successful! Welcome to our platform!",
+      message: "Registration successfull! Welcome to our platform!",
     });
   } else {
     res.status(400);
@@ -63,7 +63,7 @@ const loginUser = asyncHandler(async (req, res) => {
     return res.status(400).json({ message: "Invalid credentials" });
   }
 
-  createToken(res, user._id);
+  generateToken(res, user._id);
   res.status(200).json({
     user,
     message: "Login successful! Welcome back!",
