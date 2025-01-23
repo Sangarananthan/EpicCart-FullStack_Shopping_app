@@ -91,13 +91,11 @@ export const productApiSlice = apiSlice.injectEndpoints({
         body: { checked, radio },
       }),
     }),
-     
 
     getSimilarProducts: builder.query({
       query: (id) => `${PRODUCTS_URL}/similar/${id}`,
       keepUnusedDataFor: 5,
     }),
-
   }),
 });
 
@@ -113,5 +111,5 @@ export const {
   useGetTopProductsQuery,
   useGetNewProductsQuery,
   useGetFilteredProductsQuery,
-  useGetSimilarProductsQuery
+  useGetSimilarProductsQuery,
 } = productApiSlice;

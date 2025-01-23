@@ -39,6 +39,7 @@ const ProductCreateForm = () => {
       const formdata = new FormData();
       formdata.append("image", file);
       try {
+        console.log("check");
         const reader = new FileReader();
         reader.onloadend = () => {
           setImage(reader.result);

@@ -3,10 +3,16 @@ import { BASE_URL, USERs_URL } from "../constants";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: BASE_URL,
-  credentials: "include", // Add this
+  credentials: "include",
   prepareHeaders: (headers, { getState }) => {
-    headers.set("Content-Type", "application/json");
-    // Get token from cookie - the browser will automatically send it
+    headers["Content-Type"] = "application/json";
+
+    // Optionally, retrieve the token from cookies or state and set it
+    const token = getState().auth.token; // or from cookies directly
+    if (token) {
+      headers["Authorization"] = `Bearer ${token}`;
+    }
+
     return headers;
   },
 });
