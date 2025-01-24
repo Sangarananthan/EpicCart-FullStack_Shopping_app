@@ -24,7 +24,7 @@ Use the following credentials for admin functionality:
 - **Cart Management**: Add, update quantity, and remove products from the cart.  
   ![Cart page](https://github.com/user-attachments/assets/35686dea-bffe-4ff1-bd8d-6b1317c9fde1)
 - **Checkout**: Seamless payment integration with PayPal and credit card options.  
-  ![Shipping details page](https://github.com/user-attachments/assets/c893a206-d3e5-4dcb-bf9b-e4267e1baf62)
+  ![Shipping details page](https://github.com/user-attachments/assets/87380e4a-a69e-4fc4-acf6-5521eabd352a)
 - **Review System**: Write and read reviews, including a review summary and star ratings.  
   ![Product detailed view page](https://github.com/user-attachments/assets/2564159e-6c58-44b5-a8ec-fee3b0a000e1)
 
