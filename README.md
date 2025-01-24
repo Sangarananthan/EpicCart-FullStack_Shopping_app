@@ -19,6 +19,7 @@ Use the following credentials for admin functionality:
 - **Role-Based Access Control**: Separate user and admin functionalities.
 - **Product Browsing**: View products categorized and filterable by price, brand, and category.  
   ![Home screen product browse page](https://github.com/user-attachments/assets/2e40d7a6-2cbd-4ad4-89f1-91c320b61a50)
+![Image](https://github.com/user-attachments/assets/384ee04b-4a70-47aa-8644-33de626eac42)
 - **Favorites**: Save favorite products for later access.  
   ![Favorite product page](https://github.com/user-attachments/assets/7d48a2a8-e2e4-4f3c-ba83-5837457688e0)
 - **Cart Management**: Add, update quantity, and remove products from the cart.  
