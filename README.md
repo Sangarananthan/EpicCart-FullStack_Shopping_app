@@ -3,6 +3,10 @@
 EpicCart is a full-stack e-commerce application designed to provide a seamless shopping experience. It features robust user and admin functionalities, including product management, cart operations, checkout, and payment integration. The application is built with modern technologies for performance, scalability, and responsiveness.
 
 ---
+## Live Demo
+
+Check out the live deployment of the project here: [EpicCart Live](https://epic-cart-wheat.vercel.app/)  
+
 
 ## Features
 
@@ -172,5 +176,5 @@ This project is licensed under the [MIT License](LICENSE).
 ## Contact
 For questions or feedback, please contact:
 - **Name**: Sangar Ananthan
-- **Email**: your-email@example.com
-- **GitHub**: [your-username](https://github.com/your-username)
+- **Email**: sangarcool20@gmail.com.com
+- **GitHub**: [sangarananthan](https://github.com/sangarananthan)
