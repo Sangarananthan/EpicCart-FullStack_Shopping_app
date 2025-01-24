@@ -12,8 +12,8 @@ import {
   ListIcon,
   User2,
   ShoppingBagIcon,
-  
-  Package,
+  PackageOpen,
+  PackagePlus,
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "../../components/ui/sheet";
 import {
@@ -58,8 +58,8 @@ const Navigation = () => {
   const adminMenuItems = [
     { path: "/admin/dashboard", label: "Dashboard", icon: FaUserCog },
     { path: "/admin/categorylist", label: "Categories", icon: ListIcon },
-    { path: "/admin/productlist", label: "Add Product", icon: Package },
-    { path: "/admin/allproducts", label: "All Products", icon: Package },
+    { path: "/admin/productlist", label: "Add Product", icon: PackagePlus },
+    { path: "/admin/allproducts", label: "All Products", icon: PackageOpen },
     { path: "/admin/userlist", label: "Users", icon: User2 },
     { path: "/admin/orderlist", label: "Orders", icon: ShoppingBagIcon },
   ];
@@ -143,9 +143,7 @@ const Navigation = () => {
           <NavLink to="/favorite" icon={Heart} label="Favorites" />
 
           {userInfo ? (
-            <>
-             
-            </>
+            <></>
           ) : (
             <>
               <NavLink to="/login" icon={LogIn} label="Login" />

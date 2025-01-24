@@ -100,8 +100,7 @@ const fetchProductById = asyncHandler(async (req, res) => {
 const fetchAllProducts = asyncHandler(async (req, res) => {
   const products = await Product.find({})
     .populate("category")
-    .limit(25)
-    .sort({ createAt: -1 });
+    .sort({ createdAt: -1 });
 
   res.status(200).json(products);
 });

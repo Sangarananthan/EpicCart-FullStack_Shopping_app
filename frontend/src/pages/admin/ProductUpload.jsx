@@ -16,6 +16,7 @@ const ProductCreateForm = () => {
   const [createloading, setCreateLoading] = useState(false);
   const [updateloading, setUpdateLoading] = useState(false);
   const [deleteloading, setDeleteLoading] = useState(false);
+  const navigate = useNavigate();
   //Initial formdata
   const initialState = {
     name: "",
@@ -84,6 +85,7 @@ const ProductCreateForm = () => {
     newForm.append("countInStock", formData.countInStock);
     try {
       const response = await createProduct(newForm).unwrap();
+      navigate("/admin/allproducts");
       toast.success(response.message);
     } catch (err) {
       toast.error(err?.data?.message || "Failed to create product");
@@ -107,6 +109,7 @@ const ProductCreateForm = () => {
       setImage(product.imageUrl);
     }
   }, [isUpdate, product]);
+
   //Update Product
   const [updateProduct] = useUpdateProductMutation();
   const handleUpdate = async (e) => {
@@ -126,6 +129,7 @@ const ProductCreateForm = () => {
         id: productId,
         form: newForm,
       });
+      navigate("/admin/allproducts");
       toast.success(response.data.message);
     } catch (err) {
       toast.error(err?.data?.message || "Failed to Update product");
@@ -141,6 +145,7 @@ const ProductCreateForm = () => {
     try {
       const response = await deleteProduct(productId).unwrap();
       toast.success(response.message);
+      navigate("/admin/allproducts");
     } catch (err) {
       toast.error(err?.data?.message || "Failed to Delete product");
     }

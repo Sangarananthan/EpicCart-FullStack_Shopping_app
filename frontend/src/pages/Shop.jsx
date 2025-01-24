@@ -95,7 +95,7 @@ const Shop = () => {
     priceFilter,
     selectedBrand,
     isFilteredProductsLoading,
-    selectedCategory
+    selectedCategory,
   ]);
 
   const handleCheck = (checked, id) => {
@@ -117,6 +117,14 @@ const Shop = () => {
     setPriceFilter("");
     setCurrentPage(1);
     setSelectedCategory("");
+  };
+
+  const handlePriceFilter = (e) => {
+    const value = e.target.value;
+    // Ensure only numeric input
+    if (/^\d*$/.test(value)) {
+      setPriceFilter((state) => (state === value ? "" : value));
+    }
   };
 
   const uniqueBrands = [
@@ -186,9 +194,11 @@ const Shop = () => {
         <h3 className="font-semibold mb-3">Price</h3>
         <Input
           type="number"
+          inputMode="numeric"
+          pattern="[0-9]*"
           placeholder="Enter maximum price"
           value={priceFilter}
-          onChange={(e) => setPriceFilter(e.target.value)}
+          onChange={handlePriceFilter}
           className="w-full"
         />
       </div>
@@ -202,9 +212,7 @@ const Shop = () => {
   return (
     <div className="container mx-auto px-4 py-8 mt-[3rem] md:px-[2rem]">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">
-         Explore Products
-        </h1>
+        <h1 className="text-2xl font-bold">Explore Products</h1>
 
         {/* Mobile Filters */}
         <Sheet open={isFiltersOpen} onOpenChange={setIsFiltersOpen}>
@@ -214,11 +222,13 @@ const Shop = () => {
               Filters
             </Button>
           </SheetTrigger>
-          <SheetContent>
+          <SheetContent className="overflow-y-auto">
             <SheetHeader>
               <SheetTitle>Filters</SheetTitle>
             </SheetHeader>
-            <FiltersContent />
+            <div className="max-h-[calc(100vh-100px)] overflow-y-scroll">
+              <FiltersContent />
+            </div>
           </SheetContent>
         </Sheet>
       </div>
