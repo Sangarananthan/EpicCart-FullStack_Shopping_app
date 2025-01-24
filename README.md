@@ -1,180 +1,117 @@
-# EpicCart - E-commerce Application
+# EpicCart
 
-EpicCart is a full-stack e-commerce application designed to provide a seamless shopping experience. It features robust user and admin functionalities, including product management, cart operations, checkout, and payment integration. The application is built with modern technologies for performance, scalability, and responsiveness.
+EpicCart is a feature-rich e-commerce application designed for seamless online shopping experiences. This repository contains the source code and instructions for setting up and running the application locally.
 
----
-## Live Demo
+## 🚀 Live Demo
 
 Check out the live deployment of the project here: [EpicCart Live](https://epic-cart-wheat.vercel.app/)  
-
-
-## Features
-
-### **User Features**
-1. **Authentication and Authorization**:
-   - Secure account creation and login.
-   - JWT-based authentication.
-   - Role-based access control for users and admins.
-
-2. **Product Browsing**:
-   - Browse products by categories, brands, and price range.
-   - View product details with images, descriptions, pricing, and reviews.
-   - Add products to favorites for later access.
-
-3. **Shopping Cart**:
-   - Add products to the cart with adjustable quantities.
-   - Remove items from the cart.
-   - View order summary with subtotal.
-
-4. **Checkout & Payment**:
-   - Input shipping details (address, city, postal code, country).
-   - Pay securely via PayPal or credit/debit cards.
-   - Order summary with taxes and shipping costs calculated.
-
-5. **Reviews**:
-   - View product reviews and ratings.
-   - Submit reviews with a rating and comment.
-
-### **Admin Features**
-1. **Admin Dashboard**:
-   - View total sales, customers, orders, and sales trends.
-   - See recent orders with customer details and status.
-
-2. **Product Management**:
-   - Create, update, and delete products.
-   - Assign products to categories and upload images via Cloudinary.
-
-3. **Order Management**:
-   - Manage and update order statuses.
-
-### **Additional Features**
-- **Responsive Design**: Works seamlessly across devices (desktop, tablet, and mobile).
-- **Pagination**: Efficient navigation through large product lists.
-- **Favorites**: Mark products as favorites and store them in local storage.
+Use the following credentials for admin functionality:  
+- **Email**: admin@gmail.com  
+- **Password**: admin
 
 ---
 
-## Tech Stack
+## ✨ Features
 
-### **Frontend**:
-- **React.js**: Dynamic and responsive user interfaces.
-- **Tailwind CSS**: Utility-first CSS framework for styling.
-- **Redux**: State management across components.
-- **Vite**: Fast development and hot module replacement.
+### 🛒 User Features
+- **User Authentication**: Secure account creation and login.  
+  ![User Authentication](https://github.com/user-attachments/assets/e235503a-267a-4d5f-931c-9b56c0a80b3b)
+- **Role-Based Access Control**: Separate user and admin functionalities.
+- **Product Browsing**: View products categorized and filterable by price, brand, and category.  
+  ![Home screen product browse page](https://github.com/user-attachments/assets/2e40d7a6-2cbd-4ad4-89f1-91c320b61a50)
+- **Favorites**: Save favorite products for later access.  
+  ![Favorite product page](https://github.com/user-attachments/assets/7d48a2a8-e2e4-4f3c-ba83-5837457688e0)
+- **Cart Management**: Add, update quantity, and remove products from the cart.  
+  ![Cart page](https://github.com/user-attachments/assets/35686dea-bffe-4ff1-bd8d-6b1317c9fde1)
+- **Checkout**: Seamless payment integration with PayPal and credit card options.  
+  ![Shipping details page](https://github.com/user-attachments/assets/c893a206-d3e5-4dcb-bf9b-e4267e1baf62)
+- **Review System**: Write and read reviews, including a review summary and star ratings.  
+  ![Product detailed view page](https://github.com/user-attachments/assets/2564159e-6c58-44b5-a8ec-fee3b0a000e1)
 
-### **Backend**:
-- **Node.js**: Server-side JavaScript runtime.
-- **Express.js**: Web framework for routing and APIs.
-- **MongoDB**: NoSQL database for storing data.
-- **JWT (JSON Web Token)**: Secure authentication and authorization.
-- **Bcrypt.js**: Password hashing for security.
-- **Cloudinary**: Cloud storage for product images.
-
-### **Other Tools**:
-- **Git & GitHub**: Version control and collaboration.
-- **Postman**: API testing and development.
-- **Axios**: HTTP client for API requests.
-
----
-
-## Installation & Setup
-
-### Prerequisites
-- Node.js (v14 or higher)
-- MongoDB instance
-
-### Clone the Repository
-```bash
-git clone https://github.com/your-username/EpicCart.git
-cd EpicCart
-```
-
-### Backend Setup
-1. Navigate to the `backend` directory:
-   ```bash
-   cd backend
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Create a `.env` file and configure the following:
-   ```env
-   MONGO_URI=your_mongodb_connection_string
-   JWT_SECRET=your_jwt_secret
-   CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
-   CLOUDINARY_API_KEY=your_cloudinary_api_key
-   CLOUDINARY_API_SECRET=your_cloudinary_api_secret
-   PAYPAL_CLIENT_ID=your_paypal_client_id
-   ```
-
-4. Start the server:
-   ```bash
-   npm run dev
-   ```
-
-### Frontend Setup
-1. Navigate to the `frontend` directory:
-   ```bash
-   cd frontend
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Start the development server:
-   ```bash
-   npm run dev
-   ```
-
-### Access the Application
-- Frontend: `http://localhost:3000`
-- Backend: `http://localhost:5000`
+### 👨‍💻 Admin Features
+- **Category Management**: Create, edit, and delete product categories.
+- **Product Management**: Add, update, and delete products, including uploading images via Cloudinary.
+- **Order Management**: View order statuses and update as necessary.
+- **Dashboard**: View total sales, customer count, orders, and sales trends.
 
 ---
 
-## Functionalities Overview
+## 🛠️ Tech Stack
 
-1. **User Authentication**: Secure login, registration, and role-based access.
-2. **Product Management**: Add, edit, delete, and view products with image uploads.
-3. **Cart Operations**: Add to cart, update quantities, and view order summary.
-4. **Checkout**: Input shipping details and make payments.
-5. **Admin Dashboard**: Overview of sales, orders, and customers.
-6. **Review System**: Submit and view product reviews.
+### Frontend
+- **React.js** with **Vite**
+- **Tailwind CSS**
+- **Redux** for state management
 
----
+### Backend
+- **Node.js**
+- **Express.js**
+- **MongoDB** for the database
+- **JWT** for authentication
+- **bcrypt.js** for password hashing
+- **Cloudinary** for image hosting
 
-## Contributing
-
-Contributions are welcome! Please follow these steps:
-1. Fork the repository.
-2. Create a new branch for your feature:
-   ```bash
-   git checkout -b feature-name
-   ```
-3. Commit your changes:
-   ```bash
-   git commit -m "Add a new feature"
-   ```
-4. Push to your branch:
-   ```bash
-   git push origin feature-name
-   ```
-5. Open a pull request.
+### Deployment
+- **Vercel** (Frontend)
+- **Render** or similar (Backend)
 
 ---
 
-## License
-This project is licensed under the [MIT License](LICENSE).
+## 🖥️ Setup Instructions
+
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/your-username/epiccart.git
+   cd epiccart
+   ```
+
+2. **Install Dependencies**:
+   - Navigate to the `frontend` directory and install dependencies:
+     ```bash
+     cd frontend
+     npm install
+     ```
+   - Navigate to the `backend` directory and install dependencies:
+     ```bash
+     cd ../backend
+     npm install
+     ```
+
+3. **Environment Variables**:
+   - Create a `.env` file in the `backend` directory and add the following:
+     ```env
+     MONGO_URI=your_mongodb_connection_string
+     JWT_SECRET=your_jwt_secret
+     CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+     CLOUDINARY_API_KEY=your_cloudinary_api_key
+     CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+     PAYPAL_CLIENT_ID=your_paypal_client_id
+     ```
+
+4. **Run the Application**:
+   - Start the backend:
+     ```bash
+     cd backend
+     npm run dev
+     ```
+   - Start the frontend:
+     ```bash
+     cd ../frontend
+     npm run dev
+     ```
+
+5. **Access the Application**:
+   - Frontend: [http://localhost:3000](http://localhost:3000)
+   - Backend: [http://localhost:5000](http://localhost:5000)
 
 ---
 
-## Contact
-For questions or feedback, please contact:
-- **Name**: Sangar Ananthan
-- **Email**: sangarcool20@gmail.com.com
-- **GitHub**: [sangarananthan](https://github.com/sangarananthan)
+## 🤝 Contributing
+
+Contributions are welcome! Feel free to submit a pull request or open an issue for any bugs or feature requests.
+
+---
+
+## 📜 License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
